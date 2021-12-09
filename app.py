@@ -12,7 +12,7 @@ st.title('Trade Guru')
 
 #pick a stock
 selected_stock = st.text_input("Pick a stock", 'RELIANCE.NS' )
-data = yf.download(tickers = selected_stock, Period="max")
+data = yf.download(tickers = selected_stock.upper(), Period="max")
 data=data[::-1]
 data=data.head(1000)
 data=data[::-1]
