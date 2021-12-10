@@ -47,9 +47,11 @@ if (selected_strat=='EMA_CROSS'):
     
     trade = False
     t = 0
+    bl=[]
     for i in range(0, len(data)):
         if (trade == False and data['position'][i] == 1):
             t = data['Close'][i]
+            bl.append(data['Close'][i])
             date_buy.append(str(data.index[i].date()))
             trade = True
         if (trade == True and float(data['Close'][i]) <= float((0.95 * t))):
@@ -83,7 +85,7 @@ if (selected_strat=='EMA_CROSS'):
         fig.layout.update(title_text='Graph with Rangeslider', xaxis_rangeslider_visible=True)
         fig.update_layout(width=1300,height=1000)
         st.plotly_chart(fig)
-        #fig.update_layout(autosize=False,width=500,height=800,margin=dict(l=50,r=50,b=100,t=100,pad=4),paper_bgcolor="LightSteelBlue")
+        
     plot_raw_data()
     
     #Display trades
@@ -102,14 +104,16 @@ if (selected_strat=='EMA_CROSS'):
     st.write("Loss Trades",ltl)
     st.write("trades profit :",trades)
     st.write("Net Profit :",sum(trades))
-
+    
+    
     #ROI Logic
     inv1 = int(st.text_input("Investment amount", '1000' ))
     inv=inv1
     for i in range(0,len(trades)):
         inv=inv+((inv/bl[i])*trades[i])
-    st.write(inv)
+    st.write("Your investment would be now worth",inv)
     st.write("**ROI :  {} % **".format((inv/inv1)*100))
+    
     
     
     
@@ -146,9 +150,11 @@ if (selected_strat=='SUPERTREND'):
     
     t1=0
     profit=0
+    bl2=[]
     for i in range(0,len(data)):
         if(trade2==False and data['position2'][i]==2):
             t1=data['Close'][i]
+            bl2.append(data['Close'][i])
             date_buy2.append(str(data.index[i].date()))
             trade2=True
             
@@ -166,6 +172,7 @@ if (selected_strat=='SUPERTREND'):
     start2=1.0
     
     
+    
     #Display trades
     
     st.write("Number of Trades :",len(trades2))
@@ -177,16 +184,20 @@ if (selected_strat=='SUPERTREND'):
             ptl2.append(tl2[i])
         else:
             ltl2.append(tl2[i])
+            
+    
+
     st.write("Trade info", tl2)
     st.write("Profit Trades",ptl2)
     st.write("Loss Trades",ltl2)
     st.write("trades profit", trades2)
     st.write("Net Profit :",sum(trades2))
     
+    
     #ROI Logic
     inv21 = int(st.text_input("Investment amount", '1000' ))
     inv2=inv21
     for i in range(0,len(trades2)):
         inv2=inv2+((inv2/bl2[i])*trades2[i])
-    st.write(inv2)
+    st.write("Your investment would be now worth",inv2)
     st.write("**ROI :  {} % **".format((inv2/inv21)*100))
