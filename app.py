@@ -102,7 +102,14 @@ if (selected_strat=='EMA_CROSS'):
     st.write("Loss Trades",ltl)
     st.write("trades profit :",trades)
     st.write("Net Profit :",sum(trades))
-    
+
+    #ROI Logic
+    inv1 = int(st.text_input("Investment amount", '1000' ))
+    inv=inv1
+    for i in range(0,len(trades)):
+        inv=inv+((inv/bl[i])*trades[i])
+    st.write(inv)
+    st.write("**ROI :  {} % **".format((inv/inv1)*100))
     
     
     
@@ -175,3 +182,11 @@ if (selected_strat=='SUPERTREND'):
     st.write("Loss Trades",ltl2)
     st.write("trades profit", trades2)
     st.write("Net Profit :",sum(trades2))
+    
+    #ROI Logic
+    inv21 = int(st.text_input("Investment amount", '1000' ))
+    inv2=inv21
+    for i in range(0,len(trades2)):
+        inv2=inv2+((inv2/bl2[i])*trades2[i])
+    st.write(inv2)
+    st.write("**ROI :  {} % **".format((inv2/inv21)*100))
